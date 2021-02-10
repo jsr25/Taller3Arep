@@ -1,6 +1,7 @@
 package edu.escuelaing.arep.sparkimplement;
 
 import edu.escuelaing.arep.httpserver.HttpServer;
+import edu.escuelaing.arep.util.ReaderFiles;
 
 import java.io.IOException;
 import java.net.http.HttpRequest;
@@ -45,7 +46,9 @@ public class SparkImplementServer implements Process {
     @Override
     public String handle(String path, HttpRequest req, HttpResponse res) {
         if(functions.containsKey(path)){
-            return validOkHttpHeader()+functions.get(path).apply(req , res);
+            System.out.println(functions.get(path).apply(req , res));
+            System.out.println(ReaderFiles.reader(functions.get(path).apply(req , res)));
+            return validOkHttpHeader()+ReaderFiles.reader(functions.get(path).apply(req , res));
         }
         return validErrorHttpHeader()+"Error";
     }

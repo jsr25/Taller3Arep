@@ -2,6 +2,7 @@ package edu.escuelaing.arep.httpserver;
 
 import edu.escuelaing.arep.sparkimplement.Process;
 import edu.escuelaing.arep.sparkimplement.SparkImplementServer;
+import edu.escuelaing.arep.util.ReaderFiles;
 
 import java.io.BufferedReader;
 import java.io.IOException;
