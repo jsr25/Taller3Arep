@@ -1,13 +1,14 @@
 package edu.escuelaing.arep.util;
 
 import java.io.*;
+import java.net.Socket;
 
-public class ReaderFiles {
+public class ReaderHtml {
 
     private static String path = "src/main/resources/template";
 
     public static String reader(String file){
-        String path = ReaderFiles.path+"/"+file;
+        String path = ReaderHtml.path+"/"+file;
         String temp="";
         String cadena="";
         File f = new File(path);

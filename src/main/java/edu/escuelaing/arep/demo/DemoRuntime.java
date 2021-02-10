@@ -1,13 +1,12 @@
 package edu.escuelaing.arep.demo;
 
-import edu.escuelaing.arep.util.ReaderFiles;
-
 import static edu.escuelaing.arep.sparkimplement.SparkImplement.*;
 
 public class DemoRuntime {
     public static void main(String[] args) {
         port(getPort());
        get("/hello",(req, resp)->"hello.html");
+       get("/cuarentena",(req, resp)->"Java-logo.jpg");
        startServer();
 
     }

@@ -1,8 +1,9 @@
 package edu.escuelaing.arep.httpserver;
 
 import edu.escuelaing.arep.sparkimplement.Process;
-import edu.escuelaing.arep.sparkimplement.SparkImplementServer;
-import edu.escuelaing.arep.util.ReaderFiles;
+import edu.escuelaing.arep.util.ReaderHtml;
+import edu.escuelaing.arep.util.ReaderJpg;
+import edu.escuelaing.arep.util.ReaderJs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,21 +59,27 @@ public class HttpServer {
             String res= null;
             for(String key: routes.keySet()){
                 System.out.println(key);
-
                 if(path.startsWith(key)){
                     String newPath = path.substring(key.length());
                     System.out.println(newPath);
-                    res = routes.get(key).handle(newPath,null,null);
+                    String wpath= routes.get(key).handle(newPath,null,null);
+                    if(wpath.contains(".jpg")){
+                        ReaderJpg.reader(wpath, clientSocket);
+                    }
+                    else{
+                        res = ReaderHtml.reader(wpath);
+                    }
                 }
-
             }
 
             if(res==null) {
                 outputLine = validOkResponse();
             }
             else{
-                outputLine = res;
+                outputLine =validOkHttpHeader()+ res;
             }
+
+
             out.println(outputLine);
             out.close();
             in.close();
@@ -95,6 +102,12 @@ public class HttpServer {
         routes.put(path,proc);
     }
 
+    private String validOkHttpHeader() {
+        return "HTTP/1.1 200 OK\r\n"
+                + "Content-Type: text/html\r\n"
+                + "\r\n";
+    }
+
     public String validOkResponse(){
         return"HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
@@ -109,5 +122,26 @@ public class HttpServer {
                 + "<h1>Mi propio mensaje</h1>\n"
                 + "</body>\n"
                 + "</html>\n";
+    }
+
+
+    private void leer(String path,Socket clientSocket ){
+         if(path.contains(".jpg")){
+             ReaderJpg.reader(path, clientSocket);
+        }
+         else{
+             String res =ReaderHtml.reader(path);
+             String outputLine="";
+             try {
+                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+
+
+
+         }
     }
 }
