@@ -2,20 +2,15 @@ package edu.escuelaing.arep.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 
 
-public class ReaderJpg {
-    private static String pathA = "src/main/resources/template";
-    public static void reader(String path, Socket clientSocket) {
+public class ReaderJpg implements Reader {
 
+    public void reader(String path, Socket clientSocket) {
         try {
-
             BufferedImage in = ImageIO.read(new File(pathA+"/"+path));
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             DataOutputStream dataOutputStream = new DataOutputStream(clientSocket.getOutputStream());
@@ -24,12 +19,14 @@ public class ReaderJpg {
             dataOutputStream.writeBytes("Content-Type: image/jpeg \r\n");
             dataOutputStream.writeBytes("\r\n");
             dataOutputStream.write(buffer.toByteArray());
-
         } catch (IOException e) {
-            e.printStackTrace();
+            error(clientSocket);
         }
 
     }
 
 
-}
+    }
+
+
+

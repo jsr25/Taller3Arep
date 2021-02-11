@@ -6,7 +6,7 @@ public class DemoRuntime {
     public static void main(String[] args) {
         port(getPort());
        get("/hello",(req, resp)->"hello.html");
-       get("/cuarentena",(req, resp)->"Java-logo.jpg");
+       //get("/cuarentena",(req, resp)->"Java-logo154.jpg");
        startServer();
 
     }

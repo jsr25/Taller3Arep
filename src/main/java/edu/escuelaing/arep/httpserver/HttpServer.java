@@ -1,9 +1,7 @@
 package edu.escuelaing.arep.httpserver;
 
 import edu.escuelaing.arep.sparkimplement.Process;
-import edu.escuelaing.arep.util.ReaderHtml;
-import edu.escuelaing.arep.util.ReaderJpg;
-import edu.escuelaing.arep.util.ReaderJs;
+import edu.escuelaing.arep.util.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +16,7 @@ public class HttpServer {
     private int port;
 
     Map<String,Process> routes = new HashMap();
+    private Reader reader;
 
     public void startServer(int httpPort) throws IOException {
         port=httpPort;
@@ -42,7 +41,7 @@ public class HttpServer {
                     clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
-            String inputLine, outputLine;
+            String inputLine;
             boolean isfirstLine= true;
             String path = "";
 
@@ -57,30 +56,24 @@ public class HttpServer {
                 }
             }
             String res= null;
+
             for(String key: routes.keySet()){
                 System.out.println(key);
                 if(path.startsWith(key)){
                     String newPath = path.substring(key.length());
                     System.out.println(newPath);
-                    String wpath= routes.get(key).handle(newPath,null,null);
-                    if(wpath.contains(".jpg")){
-                        ReaderJpg.reader(wpath, clientSocket);
-                    }
-                    else{
-                        res = ReaderHtml.reader(wpath);
-                    }
+                    res= routes.get(key).handle(newPath,null,null);
+
                 }
             }
 
-            if(res==null) {
-                outputLine = validOkResponse();
+            if (res==null){
+                res=validOkResponse();
+                out.println(res);
             }
             else{
-                outputLine =validOkHttpHeader()+ res;
+                leer(res,clientSocket);
             }
-
-
-            out.println(outputLine);
             out.close();
             in.close();
             clientSocket.close();
@@ -127,21 +120,24 @@ public class HttpServer {
 
     private void leer(String path,Socket clientSocket ){
          if(path.contains(".jpg")){
-             ReaderJpg.reader(path, clientSocket);
+             reader = new ReaderJpg();
+             reader.reader(path, clientSocket);
         }
+         else if(path.contains(".html")){
+             reader = new ReaderHtml();
+             reader.reader(path, clientSocket);
+         }
+         else if(path.contains(".css")){
+             reader = new ReaderCss();
+             reader.reader(path, clientSocket);
+         }
+         else if(path.contains(".js")){
+             reader = new ReaderJs();
+             reader.reader(path, clientSocket);
+         }
          else{
-             String res =ReaderHtml.reader(path);
-             String outputLine="";
-             try {
-                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-
-
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-
-
-
+             reader = new ReaderHtml();
+             reader.error(clientSocket);
          }
     }
 }

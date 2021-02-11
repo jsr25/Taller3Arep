@@ -3,15 +3,13 @@ package edu.escuelaing.arep.util;
 import java.io.*;
 import java.net.Socket;
 
-public class ReaderHtml {
+public class ReaderHtml implements Reader {
 
-    private static String path = "src/main/resources/template";
-
-    public static String reader(String file){
-        String path = ReaderHtml.path+"/"+file;
+    public void reader(String path, Socket clientSocket){
+        String fpath = pathA+"/"+ path;
         String temp="";
         String cadena="";
-        File f = new File(path);
+        File f = new File(fpath);
         FileReader fr = null;
         try {
             fr = new FileReader(f);
@@ -19,15 +17,22 @@ public class ReaderHtml {
             while((cadena=bf.readLine())!=null) {
                  temp= temp + cadena;
             }
-
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            out.println(validOkHttpHeader()+temp);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+           error(clientSocket);
         } catch (IOException e) {
-            e.printStackTrace();
+            error(clientSocket);
         }
 
 
 
-        return temp;
+
+    }
+
+    private String validOkHttpHeader() {
+        return "HTTP/1.1 200 OK\r\n"
+                + "Content-Type: text/html\r\n"
+                + "\r\n";
     }
 }

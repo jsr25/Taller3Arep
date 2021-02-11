@@ -3,8 +3,7 @@ package edu.escuelaing.arep.util;
 import java.io.*;
 import java.net.Socket;
 
-public class ReaderJs implements Reader{
-
+public class ReaderCss implements Reader{
     @Override
     public void reader(String path, Socket clientSocket) {
         String fpath = pathA + "/" + path;
@@ -27,7 +26,7 @@ public class ReaderJs implements Reader{
 
     private String validOkHttpHeader() {
         return "HTTP/1.1 200 OK\r\n"
-                + "Content-Type: text/javascript\r\n"
+                + "Content-Type: text/css\r\n"
                 + "\r\n";
     }
-    }
+}
