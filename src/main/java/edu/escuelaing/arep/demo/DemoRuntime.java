@@ -7,7 +7,7 @@ public class DemoRuntime {
         // Cambiar Puerto
         port(getPort());
         //Metodo get Http
-       get("/hello",(req, resp)->"hello.html");
+       get("/hello",(req, resp)->"hello2.html");
        get("/img",(req, resp)->"Java-logo.jpg");
        //Iniciar servidor
        startServer();
