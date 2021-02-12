@@ -5,8 +5,7 @@
 ## Fecha: 12/02/2021
 
 ### Despliegue Heroku
-
-### CircleCi
+[![Heroku](https://www.herokucdn.com/deploy/button.png)](https://blooming-cliffs-42779.herokuapp.com/)
 
 ### Prerequisitos
 Para el uso de esta aplicación se necesitan tener instalados los siguientes componentes:
@@ -30,10 +29,10 @@ Para el uso de este Framework se deben tener en cuenta algunos aspectos importan
   get(path,(req, resp)->nombreArchivo);
 * El path indica la ruta que se quiere usar.
 * la función anónima recibe dos parámetros y espera que el retorno sea el nombre del archivo que se quiere usar.  
-### Pruebas
 
 
 ### Arquitectura General
+![](./img/Arquitectura.PNG)
 
 
 ### Ejecucion
