@@ -12,6 +12,11 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+/***
+ * Implementacion de un HttpServer
+ *
+ * Autor Juan Sebastian Ramos
+ */
 public class HttpServer {
     private int port;
 

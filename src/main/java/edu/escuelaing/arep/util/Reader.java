@@ -7,7 +7,18 @@ import java.net.Socket;
 public interface Reader {
 
     String pathA = "src/main/resources/template";
+
+    /**
+     * Metodo para leer archivos
+     * @param path nombre del archivo que se desea leer
+     * @param clientSocket instacia del socket que se desea usar
+     */
     void reader(String path, Socket clientSocket);
+
+    /**
+     * Error 404 cuando no se encuentre el recurso solicitado
+     * @param clientSocket instacia del socket que se desea usar
+     */
     default void error(Socket clientSocket) {
         String value="HTTP/1.1 404 Not Found\r\n"
                 + "Content-Type: text/html\r\n"

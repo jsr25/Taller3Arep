@@ -10,6 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
+/**
+ * Servidor que proporciona las funcionalidades
+ * principales del Framework
+ *
+ * Autor Juan Sebastian Ramos
+ */
 public class SparkImplementServer implements Process {
 
     private static SparkImplementServer _intance = new SparkImplementServer();
@@ -26,11 +32,19 @@ public class SparkImplementServer implements Process {
     }
 
 
-
+    /**
+     * Metodo Get Http
+     * @param route path que se desea ver en el navegador
+     * @param bifunc funcion anonima con los datos necesarios
+     */
     public void get(String route, BiFunction<HttpRequest, HttpResponse, String> bifunc) {
         functions.put(route, bifunc);
     }
 
+    /**
+     * Metodo para iniciar el servidor y poder
+     * visualizar las vistas creadas
+     */
     public void startServer(){
         try {
             httpServer.startServer(httpPort);
@@ -39,6 +53,10 @@ public class SparkImplementServer implements Process {
         }
     }
 
+    /**
+     * Metodo para cambiar el puerto
+     * @param serverport entero que indica el puerto
+     */
     public void port(int serverport) {
         this.httpPort=serverport;
     }
