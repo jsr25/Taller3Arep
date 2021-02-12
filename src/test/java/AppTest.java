@@ -14,4 +14,10 @@ public class AppTest extends TestCase {
     {
         return new TestSuite( AppTest.class );
     }
+
+    public void testUno()
+    {
+
+       assertTrue(true);
+    }
 }
