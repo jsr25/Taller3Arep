@@ -161,8 +161,6 @@ public class HttpServer {
                  valor+="<li>"+g+"</li>";
              }
              valor+="</nav></ul>";
-
-
              try {
                  PrintWriter out = new PrintWriter(
                          clientSocket.getOutputStream(), true);
@@ -171,8 +169,6 @@ public class HttpServer {
              } catch (IOException e) {
                  e.printStackTrace();
              }
-
-             System.out.println(valor);
          }
     }
 }

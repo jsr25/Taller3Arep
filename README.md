@@ -7,6 +7,9 @@
 ### Despliegue Heroku
 [![Heroku](https://www.herokucdn.com/deploy/button.png)](https://blooming-cliffs-42779.herokuapp.com/)
 
+### Circleci
+[![CircleCI](https://circleci.com/gh/jsr25/Taller2Arep.svg?style=svg)](https://app.circleci.com/pipelines/github/jsr25/Taller3Arep)
+
 ### Prerequisitos
 Para el uso de esta aplicación se necesitan tener instalados los siguientes componentes:
 
