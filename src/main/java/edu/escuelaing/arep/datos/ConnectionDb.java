@@ -15,7 +15,8 @@ public class ConnectionDb {
         try {
             //Class.forName(driver);
             DriverManager.registerDriver(new org.postgresql.Driver());
-            connect = DriverManager.getConnection(url,usuario,contraseña);
+            while(connect==null){
+            connect = DriverManager.getConnection(url,usuario,contraseña);}
             connect.setAutoCommit(false);
         } catch ( SQLException e) {
             e.printStackTrace();
