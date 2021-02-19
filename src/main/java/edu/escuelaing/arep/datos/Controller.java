@@ -31,7 +31,7 @@ public class Controller {
         String select="SELECT * FROM usuario;";
         try {
             ResultSet res =conn.prepareStatement(select).executeQuery();
-
+            conn.close();
             while(res.next()){
                 list.add(res.getString("nombre"));
             }
