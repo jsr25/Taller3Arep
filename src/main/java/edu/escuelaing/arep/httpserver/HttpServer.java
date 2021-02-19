@@ -167,6 +167,7 @@ public class HttpServer {
                  PrintWriter out = new PrintWriter(
                          clientSocket.getOutputStream(), true);
                  out.println(valor);
+                 out.close();
              } catch (IOException e) {
                  e.printStackTrace();
              }
