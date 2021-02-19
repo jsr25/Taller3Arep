@@ -53,6 +53,13 @@ Para revisar las rutas de la demo debe ingresar a las siguientes URL:
 * https://127.0.0.1:3478/Apps/img
 
 donde podrá observar un HTML implementado y una imagen respectivamente
+
+Adicionalmente el las rutas:
+* https://127.0.0.1:3478/Apps/index
+* https://127.0.0.1:3478/Apps/valores
+  
+podran agregar a la bases de datos de prueba un nombre cualquiera y ver el resultados de la consulta 
+respectivamente.
 * la función anónima recibe dos parámetros y espera que el retorno sea el nombre del archivo que se quiere usar.
 ### Javadoc
 La documentación se encuentra en el directorio apidocs, para generar una nueva documentación
