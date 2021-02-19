@@ -1,5 +1,6 @@
 package edu.escuelaing.arep.sparkimplement;
 
+import edu.escuelaing.arep.datos.Controller;
 import edu.escuelaing.arep.httpserver.HttpServer;
 import edu.escuelaing.arep.util.ReaderHtml;
 
@@ -65,6 +66,11 @@ public class SparkImplementServer implements Process {
     public String handle(String path, HttpRequest req, HttpResponse res) {
         if(functions.containsKey(path)){
             return functions.get(path).apply(req , res);
+        }
+        else if(path.contains("get")){
+            Controller conn=new Controller();
+            System.out.println(path);
+//            conn.insertData();
         }
         return validErrorHttpHeader()+"Error";
     }

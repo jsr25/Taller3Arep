@@ -15,7 +15,7 @@ public class ReaderJs implements Reader{
             FileReader fr = new FileReader(f);
             BufferedReader bf = new BufferedReader(fr);
             while ((cadena = bf.readLine()) != null) {
-                temp = temp + cadena;
+                temp = temp + cadena+"\r\n";
             }
             clientSocket.getOutputStream().write((validOkHttpHeader()+temp).getBytes());
         } catch (FileNotFoundException e) {

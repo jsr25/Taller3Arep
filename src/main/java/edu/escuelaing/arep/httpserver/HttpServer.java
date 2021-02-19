@@ -1,5 +1,6 @@
 package edu.escuelaing.arep.httpserver;
 
+import edu.escuelaing.arep.datos.Controller;
 import edu.escuelaing.arep.sparkimplement.Process;
 import edu.escuelaing.arep.util.*;
 
@@ -10,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /***
@@ -49,8 +51,19 @@ public class HttpServer {
             String inputLine;
             boolean isfirstLine= true;
             String path = "";
+            boolean pathRead = false;
+            String path2="";
 
             while ((inputLine = in.readLine()) != null) {
+                if(!pathRead ){
+                    path2 = inputLine.split(" ")[1];
+                    if(path2.contains("%")){
+                        Controller conn=new Controller();
+                        conn.insertData(path2.split("%")[1]);
+                    }
+                    System.out.println("Path read**"+ path2);
+                    pathRead = true;
+                }
                 System.out.println("Recibí: " + inputLine);
                 if(isfirstLine){
                     path=inputLine.split(" ")[1];
@@ -140,9 +153,25 @@ public class HttpServer {
              reader = new ReaderJs();
              reader.reader(path, clientSocket);
          }
-         else{
-             reader = new ReaderHtml();
-             reader.error(clientSocket);
+         else if(path.equals("valores")){
+             Controller conn=new Controller();
+             List<String> list=conn.selectData();
+             String valor =validOkHttpHeader()+"<nav> <ul>";
+             for(String g: list){
+                 valor+="<li>"+g+"</li>";
+             }
+             valor+="</nav></ul>";
+
+
+             try {
+                 PrintWriter out = new PrintWriter(
+                         clientSocket.getOutputStream(), true);
+                 out.println(valor);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+
+             System.out.println(valor);
          }
     }
 }
