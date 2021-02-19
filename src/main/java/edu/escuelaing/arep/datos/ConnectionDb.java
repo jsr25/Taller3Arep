@@ -1,5 +1,7 @@
 package edu.escuelaing.arep.datos;
 
+import org.postgresql.Driver;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,8 +17,7 @@ public class ConnectionDb {
     public ConnectionDb() {
         try {
             //Class.forName(driver);
-            org.postgresql.Driver val = new org.postgresql.Driver();
-            DriverManager.registerDriver(val);
+            DriverManager.registerDriver(new org.postgresql.Driver());
             while (connect == null) {
                 connect = DriverManager.getConnection(url, usuario, contraseña);
             }
